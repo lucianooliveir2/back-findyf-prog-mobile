@@ -25,14 +25,14 @@ function getAnimais(){
 }
 
 function login(email, senha){
-    new Promise((resolve, reject)=>{
-            return connection.query(`SELECT * FROM 'usuario' WHERE us_email = '${email}' AND us_senha = '${senha}';`, (err, rows, fields)=>{
+    return new Promise((resolve, reject)=>{
+            connection.query(`SELECT * FROM usuario WHERE us_email = '${email}' AND us_senha = '${senha}';`, (err, rows, fields)=>{
             if(err) {
-                reject()
+                reject(err)
             }
             resolve(rows)
         })
-    }).catch((r)=>{})
+    }).catch((r)=>{console.log(r)})
 
 }
 

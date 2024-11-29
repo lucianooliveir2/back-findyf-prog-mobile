@@ -1,17 +1,23 @@
 
 import express from 'express'
 import * as db from './database/database.js'
+import bodyParser from 'body-parser'
 
 const app = express()
 
 const port = 3000
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 app.get('/', (req,res)=>{
     res.send("aaa");
 })
 
 app.post('/login', (req,res)=>{
-    res.send(db.login('cleber@gmail.com', "123123"))
+    db.login(req.body.email, req.body.senha).then((result)=>{
+        res.send(result)
+    })
 })
 
 app.get('/getAnimais', (req,res)=>{
@@ -41,5 +47,5 @@ app.get('/getAbrigo', (req,res)=>{
 })
 
 app.listen(port,() =>{
-    console.log("rodando foda")
+    console.log("pai ta on 😎")
 })
